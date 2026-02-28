@@ -1,11 +1,38 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import AuroraFogBackground from "@/components/AuroraFogBackground";
 import ChapterSection from "@/components/ChapterSection";
 import IntroScrambleLock from "@/components/IntroScrambleLock";
 
 type MotionMode = "auto" | "reduced" | "full";
+
+const assemblyCards = [
+  {
+    slot: 0.16,
+    phase: "Layer 01",
+    title: "Structure",
+    body: "Information architecture appears first: spacing, hierarchy, and rhythm.",
+  },
+  {
+    slot: 0.3,
+    phase: "Layer 02",
+    title: "Surface",
+    body: "Visual tone sharpens: glass, type contrast, and cinematic depth alignment.",
+  },
+  {
+    slot: 0.44,
+    phase: "Layer 03",
+    title: "Behavior",
+    body: "Motion becomes logic: scroll, velocity, and response mapped to intent.",
+  },
+  {
+    slot: 0.58,
+    phase: "Layer 04",
+    title: "Stability",
+    body: "Performance tuning locks the experience so elegance stays smooth.",
+  },
+];
 
 export default function PortfolioPage() {
   const [introDone, setIntroDone] = useState(false);
@@ -80,159 +107,123 @@ export default function PortfolioPage() {
       </button>
 
       <main className={`site-main ${introDone ? "is-active" : "is-muted"}`}>
-        <header className="story-intro">
-          <p className="story-intro-label">SINAN / Interactive Portfolio</p>
-          <h1>Stories built with code, motion, and restraint.</h1>
-          <p>
-            Scroll through a narrative build process. Each chapter reveals how
-            atmosphere becomes product, and product becomes measurable impact.
-          </p>
-        </header>
-
         <ChapterSection
           id="act-01"
-          chapter="Act 01"
-          eyebrow="Opening Signal"
-          title="A quiet frame before the first interaction."
-          summary="The story starts in low contrast and slow tempo. Users enter without pressure, then the interface gradually reveals direction."
+          chapter="Act 1"
+          eyebrow="Silence"
+          title="Before code, there is intention."
+          summary="Scroll..."
           reducedMotion={reducedMotion}
-          className="chapter-hero"
+          className="chapter-silence"
         >
-          <blockquote className="quote-panel">
-            Luxury on the web is not noise. It is confidence in pacing,
-            typography, and technical execution.
-          </blockquote>
-          <div className="metric-strip">
-            <article className="metric-chip">
-              <p>Tempo</p>
-              <strong>Slow Breath</strong>
-            </article>
-            <article className="metric-chip">
-              <p>Intent</p>
-              <strong>Clarity First</strong>
-            </article>
-            <article className="metric-chip">
-              <p>Mode</p>
-              <strong>Scroll Narrative</strong>
-            </article>
+          <div className="silence-stage">
+            <p className="silence-line silence-line-one">
+              Before code,
+              <br />
+              there is intention.
+            </p>
+            <p className="silence-line silence-line-two">
+              Before design,
+              <br />
+              there is clarity.
+            </p>
           </div>
         </ChapterSection>
 
         <ChapterSection
           id="act-02"
-          chapter="Act 02"
-          eyebrow="System Rise"
-          title="The interface transitions from emotion to structure."
-          summary="This chapter introduces architecture decisions. Every motion choice is connected to readability, hierarchy, and device constraints."
+          chapter="Act 2"
+          eyebrow="The Realization"
+          title="Most websites just sit there. I build systems that respond."
+          summary="Motion is not decoration. It is communication."
           reducedMotion={reducedMotion}
+          className="chapter-realization"
         >
-          <ol className="beat-list">
-            <li className="beat-item">
-              <h3>Scene Mapping</h3>
-              <p>
-                Break the experience into clear chapters with scroll checkpoints
-                and predictable state changes.
-              </p>
-            </li>
-            <li className="beat-item">
-              <h3>Interaction Weight</h3>
-              <p>
-                Motion intensity scales with user input speed, then dampens to a
-                calm baseline.
-              </p>
-            </li>
-            <li className="beat-item">
-              <h3>Readability Guardrails</h3>
-              <p>
-                Glass layers and controlled contrast keep copy legible above
-                complex WebGL movement.
-              </p>
-            </li>
-            <li className="beat-item">
-              <h3>Adaptive Quality</h3>
-              <p>
-                Reduced effects on low-power devices preserve fluidity while
-                keeping the same visual language.
-              </p>
-            </li>
-          </ol>
+          <div className="realization-stage">
+            <p className="realization-line realization-line-one">
+              Most websites just sit there.
+              <br />
+              I build systems that respond.
+            </p>
+            <p className="realization-line realization-line-two">
+              Motion is not decoration.
+              <br />
+              It is communication.
+            </p>
+          </div>
         </ChapterSection>
 
         <ChapterSection
           id="act-03"
-          chapter="Act 03"
-          eyebrow="Proof"
-          title="Moments that convert story into business outcomes."
-          summary="The strongest chapters are where visual drama serves concrete product goals: retention, trust, and conversion."
+          chapter="Act 3"
+          eyebrow="Assembly"
+          title="Structure. Surface. Behavior."
+          summary="Cards materialize from fog, sharpen, and lock as you scroll."
           reducedMotion={reducedMotion}
+          className="chapter-assembly"
         >
-          <div className="scene-grid">
-            <article className="scene-card">
-              <p className="scene-meta">2025 / Immersive Commerce</p>
-              <h3>Atelier Spectra</h3>
-              <p>
-                Increased average session depth by framing each product reveal
-                as a guided camera chapter instead of a static catalog.
-              </p>
-            </article>
-            <article className="scene-card">
-              <p className="scene-meta">2024 / Brand Platform</p>
-              <h3>Northline Systems</h3>
-              <p>
-                Converted a dense service website into a scroll story where
-                complex offerings are introduced in staged, digestible sequences.
-              </p>
-            </article>
-            <article className="scene-card">
-              <p className="scene-meta">2024 / Product Narrative</p>
-              <h3>Halcyon Labs</h3>
-              <p>
-                Built a calm launch narrative where each scroll segment aligns
-                with one product promise and one measurable KPI.
-              </p>
-            </article>
+          <div className="assembly-stack">
+            {assemblyCards.map((card) => (
+              <article
+                key={card.title}
+                className="assembly-card"
+                style={{ "--slot": card.slot } as CSSProperties}
+              >
+                <p className="assembly-phase">{card.phase}</p>
+                <h3>{card.title}</h3>
+                <p>{card.body}</p>
+              </article>
+            ))}
           </div>
         </ChapterSection>
 
         <ChapterSection
           id="act-04"
-          chapter="Act 04"
-          eyebrow="Finale"
-          title="From first brief to launch, one continuous storyline."
-          summary="Collaboration is run like production: short loops, visible milestones, and decisions tied to user outcomes."
+          chapter="Act 4"
+          eyebrow="Proof"
+          title="Systems I've Built"
+          summary="Each one built to feel alive, but engineered to stay usable and fast."
           reducedMotion={reducedMotion}
-          className="chapter-outro"
+          className="chapter-proof"
         >
-          <div className="outro-layout">
-            <div className="outro-note">
-              <h3>Collaboration cadence</h3>
-              <p>Week 1: Direction lock and narrative map.</p>
-              <p>Week 2-3: Interaction and shader implementation.</p>
-              <p>Week 4: Performance tuning and launch handoff.</p>
-            </div>
-            <div className="outro-actions">
-              <a
-                className="cta-button cta-primary"
-                href="mailto:hello@sinan.dev"
-              >
-                Start a project
+          <div className="proof-list">
+            <article className="proof-item">
+              <h3>Atlas Commerce</h3>
+              <p>A narrative storefront that raised session depth with guided motion.</p>
+              <a href="#" className="proof-link">
+                View case
               </a>
-              <a className="cta-button cta-ghost" href="#">
-                View capability deck
+            </article>
+            <article className="proof-item">
+              <h3>Northline Platform</h3>
+              <p>Complex service architecture transformed into a clear scroll journey.</p>
+              <a href="#" className="proof-link">
+                View case
               </a>
-            </div>
+            </article>
+            <article className="proof-item">
+              <h3>Halcyon Launch</h3>
+              <p>Product narrative where timing and depth drove trust and conversion.</p>
+              <a href="#" className="proof-link">
+                View case
+              </a>
+            </article>
           </div>
-          <div className="signature-line">
-            <span>SINAN</span>
-            <span>Dynamic Web Architect</span>
-            <span>Available for selected collaborations</span>
-          </div>
-          <div className="cta-row">
-            <a className="cta-button cta-primary" href="mailto:hello@sinan.dev">
+        </ChapterSection>
+
+        <ChapterSection
+          id="act-05"
+          chapter="Act 5"
+          eyebrow="Final Shot"
+          title="If this feels alive... imagine what we can build together."
+          summary="Pause."
+          reducedMotion={reducedMotion}
+          className="chapter-finale"
+        >
+          <div className="finale-stage">
+            <p className="finale-signature">- Sinan Muneer</p>
+            <a className="finale-contact" href="mailto:hello@sinan.dev">
               hello@sinan.dev
-            </a>
-            <a className="cta-button cta-ghost" href="#">
-              Download project brief
             </a>
           </div>
         </ChapterSection>
