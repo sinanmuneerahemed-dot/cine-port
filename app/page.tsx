@@ -1,5 +1,5 @@
-import PortfolioPage from "@/components/PortfolioPage";
+import MapGamePortfolio from "@/components/MapGamePortfolio";
 
 export default function HomePage() {
-  return <PortfolioPage />;
+  return <MapGamePortfolio />;
 }
