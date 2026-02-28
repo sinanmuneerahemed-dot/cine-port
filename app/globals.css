@@ -65,6 +65,7 @@ a {
   position: fixed;
   inset: 0;
   overflow: hidden;
+  z-index: 8;
 }
 
 .map-canvas {
@@ -169,6 +170,7 @@ a {
     rgba(117, 201, 184, 0.88)
   );
   box-shadow: 0 0 12px rgba(129, 188, 255, 0.44);
+  transition: width 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .motion-toggle {
@@ -230,7 +232,7 @@ a {
   background: rgba(8, 13, 23, 0.7);
   border-radius: 0.85rem;
   backdrop-filter: blur(12px);
-  padding: 0.6rem 0.9rem;
+  padding: 0.56rem 0.86rem;
   text-align: center;
   pointer-events: none;
 }
@@ -265,6 +267,18 @@ a {
   color: rgba(219, 239, 255, 0.96);
   box-shadow: 0 0 18px rgba(119, 184, 255, 0.2);
   pointer-events: none;
+  animation: toast-rise 260ms ease both;
+}
+
+@keyframes toast-rise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 .zone-modal-backdrop {
@@ -273,8 +287,16 @@ a {
   z-index: 40;
   display: grid;
   place-items: center;
-  background: rgba(4, 8, 14, 0.44);
-  backdrop-filter: blur(7px);
+  background: rgba(4, 8, 14, 0.32);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.zone-modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .zone-modal {
@@ -291,25 +313,27 @@ a {
   backdrop-filter: blur(16px);
   box-shadow: var(--glass-shadow);
   padding: 1.2rem 1.1rem 1rem;
+  transform: scale(0.98);
+  opacity: 0;
+  transition:
+    transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 260ms ease;
 }
 
-.zone-modal-subtitle {
-  margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(244, 241, 232, 0.64);
+.zone-modal.is-open {
+  transform: scale(1);
+  opacity: 1;
 }
 
 .zone-modal h2 {
-  margin: 0.4rem 0 0;
+  margin: 0;
   font-family: "Playfair Display", serif;
   font-size: clamp(1.6rem, 4.8vw, 2.5rem);
   line-height: 1;
 }
 
-.zone-modal-description {
-  margin: 0.7rem 0 0;
+.zone-modal-impact {
+  margin: 0.62rem 0 0;
   color: var(--ink-muted);
 }
 
@@ -328,7 +352,7 @@ a {
 }
 
 .zone-tags {
-  margin: 0.8rem 0 0;
+  margin: 0.82rem 0 0;
   padding: 0;
   list-style: none;
   display: flex;
@@ -352,21 +376,25 @@ a {
 }
 
 .zone-link-button {
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.05);
   padding: 0.5rem 0.82rem;
   font-size: 0.76rem;
   letter-spacing: 0.03em;
   color: rgba(244, 241, 232, 0.92);
+  transition:
+    border-color 220ms ease,
+    transform 220ms ease;
 }
 
 .zone-link-button:hover {
-  border-color: rgba(255, 255, 255, 0.36);
+  border-color: rgba(255, 255, 255, 0.42);
+  transform: translateY(-1px);
 }
 
-.zone-link-button.is-disabled {
-  opacity: 0.6;
+.zone-link-button.is-placeholder {
+  opacity: 0.66;
 }
 
 .touch-controls {
@@ -407,12 +435,12 @@ a {
 
 .touch-interact {
   pointer-events: auto;
-  min-width: 116px;
+  min-width: 126px;
   border: 1px solid var(--glass-border);
   border-radius: 999px;
   background: rgba(8, 13, 24, 0.64);
   color: rgba(244, 241, 232, 0.94);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 0.74rem 0.88rem;
@@ -444,7 +472,12 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .motion-toggle,
-  .hud-xp-fill {
+  .hud-xp-fill,
+  .zone-modal-backdrop,
+  .zone-modal,
+  .zone-link-button,
+  .xp-toast {
     transition: none !important;
+    animation: none !important;
   }
 }
